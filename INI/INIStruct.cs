@@ -6,7 +6,7 @@ using System.Text;
 
 namespace INI
 {
-    public class INIStruct<TValue> : IEnumerable<TValue>
+    public class INIStruct<TValue> : IEnumerable<TValue> where TValue : new()
     {
         string parent;//How to use it?
 
@@ -47,7 +47,6 @@ namespace INI
         {
             get { return dict.Values.ToList(); }
         }
-
         public TValue this[string key]
         {
             get
@@ -119,17 +118,28 @@ namespace INI
             order.Clear();//linesOrder = new List<string>();
         }
 
-        public void MoveByRef(string toBeMovedKey, string refKey, bool beforeRef)
+        public void MoveKeyByRef(string toBeMovedKey, string refKey, bool beforeRef)
         {
             if (Contains(toBeMovedKey) == false)//Not existed.
-                throw new ArgumentException($"Not existed.");
+                throw new ArgumentException($"{toBeMovedKey} Not existed.");
             if (Contains(refKey) == false)//Not existed.
-                throw new ArgumentException($"Ref not existed.");
+                throw new ArgumentException($"{refKey} Ref not existed.");
             order.Remove(toBeMovedKey);
             if (beforeRef)
                 order.Insert(order.IndexOf(refKey), toBeMovedKey);
             else
                 order.Insert(order.IndexOf(refKey) + 1, toBeMovedKey);
+        }
+        public void RenameKey(string oldName, string newName)
+        {
+            if (Contains(oldName) == false)//Not existed.
+                throw new ArgumentException($"{oldName} Not existed.");
+            if (Contains(newName))//Existed.
+                throw new ArgumentException($"{newName} Existed.");
+            Insert(IndexOf(oldName), newName, new TValue());
+            //Insert(IndexOf(oldName), newName, new TValue(oldName)); - error CS0417: 'TValue': cannot provide arguments when creating an instance of a variable type
+            this[newName] = this[oldName];
+            Remove(oldName);
         }
     }
 }

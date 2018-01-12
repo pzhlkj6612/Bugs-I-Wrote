@@ -6,10 +6,8 @@ using System.Text;
 
 namespace INI
 {
-    public class INIStruct<TValue> : IEnumerable<TValue> where TValue : new()
+    public class INIStruct<TValue> : BiMapping, IEnumerable<TValue> where TValue : IChild, new()
     {
-        string parent;//How to use it?
-
         Dictionary<string, TValue> dict;//Storage.
         List<string> order;//Order.
 
@@ -78,6 +76,8 @@ namespace INI
         {
             if (Contains(key))
                 throw new ArgumentException("Existed.");
+
+            AddChild(value);//Map it.
             dict.Add(key, value);
             order.Add(key);
         }
@@ -87,6 +87,8 @@ namespace INI
                 throw new IndexOutOfRangeException("Index which used to insert out of range.");
             if (Contains(key))
                 throw new ArgumentException("Existed.");
+
+            AddChild(value);//?
             dict.Add(key, value);
             order.Insert(index, key);
         }
@@ -108,8 +110,11 @@ namespace INI
         {
             if (Contains(key) == false)
                 return false;
+
+            RemoveChild(dict[key]);//Map it.
             dict.Remove(key);
             order.Remove(key);
+
             return true;
         }
         public void Clear()
@@ -124,6 +129,7 @@ namespace INI
                 throw new ArgumentException($"{toBeMovedKey} Not existed.");
             if (Contains(refKey) == false)//Not existed.
                 throw new ArgumentException($"{refKey} Ref not existed.");
+
             order.Remove(toBeMovedKey);
             if (beforeRef)
                 order.Insert(order.IndexOf(refKey), toBeMovedKey);
@@ -136,9 +142,13 @@ namespace INI
                 throw new ArgumentException($"{oldName} Not existed.");
             if (Contains(newName))//Existed.
                 throw new ArgumentException($"{newName} Existed.");
-            Insert(IndexOf(oldName), newName, new TValue());
-            //Insert(IndexOf(oldName), newName, new TValue(oldName)); - error CS0417: 'TValue': cannot provide arguments when creating an instance of a variable type
+
+            Insert(IndexOf(oldName), newName, new TValue());//new TValue(oldName) - error CS0417: 'TValue': cannot provide arguments when creating an instance of a variable type
             this[newName] = this[oldName];
+
+            RemoveChild(this[oldName]);//Map it.
+            AddChild(this[newName]);//Map it.
+            this[newName].SetParent(this[oldName].GetParent());//Map it.
             Remove(oldName);
         }
     }

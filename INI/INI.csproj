@@ -39,7 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="INILine.cs" />
+    <Compile Include="IParent.cs" />
     <Compile Include="INIStruct.cs" />
+    <Compile Include="BiMapping.cs" />
+    <Compile Include="IChild.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

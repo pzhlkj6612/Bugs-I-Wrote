@@ -5,7 +5,7 @@ using System.Text;
 
 namespace INI
 {
-    public class INILine : IChild
+    public class INILine : InMapping
     {
         public string value { get; set; }
         public string comt { get; set; }
@@ -27,16 +27,6 @@ namespace INI
             value = line.value;
             comt = line.comt;
             isComt = line.isComt;
-        }
-
-        private IParent parent;
-        public void SetParent(IParent parent)
-        {
-            this.parent = parent;
-        }
-        public IParent GetParent()
-        {
-            return parent;
         }
     }
 }

@@ -5,13 +5,11 @@ using System.Text;
 
 namespace INI
 {
-    public class BiMapping : IParent, IChild
+    public class DeMapping : IParent
     {
-        private IParent parent;
         private HashSet<IChild> children;
-        protected BiMapping()
+        protected DeMapping()
         {
-            parent = null;
             children = new HashSet<IChild>();
         }
         public void AddChild(IChild child)
@@ -23,14 +21,6 @@ namespace INI
         {
             children.Remove(child);
             child.SetParent(null);
-        }
-        public IParent GetParent()
-        {
-            return parent;
-        }
-        public void SetParent(IParent parent)
-        {
-            this.parent = parent;
         }
     }
 }

@@ -6,7 +6,8 @@ using System.Text;
 
 namespace INI
 {
-    public class INIStruct<TValue> : BiMapping, IEnumerable<TValue> where TValue : IChild, new()
+    //BiMapping or DeMapping ?
+    public class INIStruct<TValue> : DeMapping, IEnumerable<TValue> where TValue : InMapping, new()
     {
         Dictionary<string, TValue> dict;//Storage.
         List<string> order;//Order.
@@ -88,7 +89,7 @@ namespace INI
             if (Contains(key))
                 throw new ArgumentException("Existed.");
 
-            AddChild(value);//?
+            AddChild(value);//Map it.
             dict.Add(key, value);
             order.Insert(index, key);
         }
@@ -146,7 +147,7 @@ namespace INI
             Insert(IndexOf(oldName), newName, new TValue());//new TValue(oldName) - error CS0417: 'TValue': cannot provide arguments when creating an instance of a variable type
             this[newName] = this[oldName];
 
-            RemoveChild(this[oldName]);//Map it.
+            RemoveChild(this[oldName]);//De-Map it.
             AddChild(this[newName]);//Map it.
             this[newName].SetParent(this[oldName].GetParent());//Map it.
             Remove(oldName);

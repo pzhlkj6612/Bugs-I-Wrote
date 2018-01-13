@@ -51,7 +51,7 @@ namespace INI
             {
                 if (Contains(key))
                     return dict[key];
-                throw new KeyNotFoundException($"Key named \"{key}\" Not existed.");
+                throw new KeyNotFoundException($"\"{key}\" not existed.");
             }
             set
             {
@@ -68,14 +68,14 @@ namespace INI
                 string result = dict.FirstOrDefault(line => line.Value.Equals(value)).Key;
                 if (result != null)
                     return result;
-                throw new KeyNotFoundException($"Key value is \"{value}\" Not existed.");
+                throw new KeyNotFoundException($"The key which value is \"{value}\" not existed.");
             }
         }
 
         public void Add(string key, TValue value)
         {
             if (Contains(key))
-                throw new ArgumentException("Existed.");
+                throw new ArgumentException($"\"{key}\" existed.");
 
             AddChild(value);//Map it.
             dict.Add(key, value);
@@ -84,9 +84,9 @@ namespace INI
         public void Insert(int index, string key, TValue value)
         {
             if (index < 0 || index > Count)
-                throw new IndexOutOfRangeException("Index which used to insert out of range.");
+                throw new IndexOutOfRangeException($"Index \"{index}\" out of range, current count: {Count}.");
             if (Contains(key))
-                throw new ArgumentException("Existed.");
+                throw new ArgumentException($"\"{key}\" existed.");
 
             AddChild(value);//Map it.
             dict.Add(key, value);
@@ -126,9 +126,9 @@ namespace INI
         public void MoveKeyByRef(string toBeMovedKey, string refKey, bool beforeRef)
         {
             if (Contains(toBeMovedKey) == false)//Not existed.
-                throw new ArgumentException($"{toBeMovedKey} Not existed.");
+                throw new ArgumentException($"\"{toBeMovedKey}\" not existed.");
             if (Contains(refKey) == false)//Not existed.
-                throw new ArgumentException($"{refKey} Ref not existed.");
+                throw new ArgumentException($"\"{refKey}\" not existed.");
 
             order.Remove(toBeMovedKey);
             if (beforeRef)
@@ -139,14 +139,14 @@ namespace INI
         public void RenameKey(string oldName, string newName)
         {
             if (Contains(oldName) == false)//Not existed.
-                throw new ArgumentException($"{oldName} Not existed.");
+                throw new ArgumentException($"\"{oldName}\" not existed.");
             if (Contains(newName))//Existed.
-                throw new ArgumentException($"{newName} Existed.");
+                throw new ArgumentException($"\"{newName}\" existed.");
 
             Insert(IndexOf(oldName), newName, new TValue());//new TValue(oldName) - error CS0417: 'TValue': cannot provide arguments when creating an instance of a variable type
             this[newName] = this[oldName];
 
-            RemoveChild(this[oldName]);//De-Map it.
+            RemoveChild(this[oldName]);//Demap it.
             AddChild(this[newName]);//Map it.
             this[newName].SetParent(this[oldName].GetParent());//Map it.
             Remove(oldName);

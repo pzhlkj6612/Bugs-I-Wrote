@@ -5,7 +5,7 @@ using System.Text;
 
 namespace INI
 {
-    public class InMapping : IChild
+    public abstract class InMapping : IChild
     {
         private IParent parent;
         protected InMapping()

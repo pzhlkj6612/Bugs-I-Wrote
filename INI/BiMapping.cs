@@ -5,7 +5,7 @@ using System.Text;
 
 namespace INI
 {
-    public class BiMapping : InMapping, IParent
+    public abstract class BiMapping : InMapping, IParent
     {
         private HashSet<IChild> children;
         protected BiMapping() : base()

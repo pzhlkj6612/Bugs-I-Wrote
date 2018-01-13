@@ -5,7 +5,8 @@ using System.Text;
 
 namespace INI
 {
-    public class DeMapping : IParent
+    //unused.
+    public abstract class DeMapping : IParent
     {
         private HashSet<IChild> children;
         protected DeMapping()

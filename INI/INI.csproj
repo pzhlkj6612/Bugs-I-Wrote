@@ -44,7 +44,6 @@
     <Compile Include="INIStruct.cs" />
     <Compile Include="BiMapping.cs" />
     <Compile Include="IChild.cs" />
-    <Compile Include="DeMapping.cs" />
     <Compile Include="InMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

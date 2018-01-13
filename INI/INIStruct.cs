@@ -6,8 +6,7 @@ using System.Text;
 
 namespace INI
 {
-    //BiMapping or DeMapping ?
-    public class INIStruct<TValue> : DeMapping, IEnumerable<TValue> where TValue : InMapping, new()
+    public class INIStruct<TValue> : BiMapping, IEnumerable<TValue> where TValue : InMapping, new()
     {
         Dictionary<string, TValue> dict;//Storage.
         List<string> order;//Order.

@@ -19,9 +19,9 @@ namespace INI
         public ININode(string value, string comt, bool isComt)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
             if (comt == null)
-                throw new ArgumentNullException("comt");
+                throw new ArgumentNullException(nameof(comt));
 
             this.value = value;
             this.comt = comt;
@@ -30,7 +30,7 @@ namespace INI
         public ININode(ININode anotherNode)
         {
             if (anotherNode == null)
-                throw new ArgumentNullException("anotherNode");
+                throw new ArgumentNullException(nameof(anotherNode));
 
             value = anotherNode.value;
             comt = anotherNode.comt;

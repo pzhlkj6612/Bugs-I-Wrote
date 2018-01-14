@@ -19,22 +19,22 @@ namespace INI
         public ININode(string value, string comt, bool isComt)
         {
             if (value == null)
-                throw new ArgumentNullException("Argument \"value\" NULL.");
+                throw new ArgumentNullException("value");
             if (comt == null)
-                throw new ArgumentNullException("Argument \"comt\" NULL.");
+                throw new ArgumentNullException("comt");
 
             this.value = value;
             this.comt = comt;
             this.isComt = isComt;
         }
-        public ININode(ININode n)
+        public ININode(ININode anotherNode)
         {
-            if (n == null)
-                throw new ArgumentNullException("Argument \"line\" NULL.");
+            if (anotherNode == null)
+                throw new ArgumentNullException("anotherNode");
 
-            value = n.value;
-            comt = n.comt;
-            isComt = n.isComt;
+            value = anotherNode.value;
+            comt = anotherNode.comt;
+            isComt = anotherNode.isComt;
         }
     }
 }

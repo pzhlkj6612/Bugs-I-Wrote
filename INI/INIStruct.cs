@@ -27,12 +27,12 @@ namespace INI
             dict = new Dictionary<string, TValue>();
             order = new List<string>();
         }
-        public INIStruct(INIStruct<TValue> s)
+        public INIStruct(INIStruct<TValue> anotherStruct)
         {
-            if (s == null)
-                throw new ArgumentNullException("Argument \"s\" NULL.");
-            dict = new Dictionary<string, TValue>(s.dict);
-            order = new List<string>(s.order);
+            if (anotherStruct == null)
+                throw new ArgumentNullException("anotherStruct");
+            dict = new Dictionary<string, TValue>(anotherStruct.dict);
+            order = new List<string>(anotherStruct.order);
         }
 
         public int Count
@@ -77,9 +77,9 @@ namespace INI
         public void Add(string key, TValue value)
         {
             if (key == null)
-                throw new ArgumentNullException("Argument \"key\" NULL.");
+                throw new ArgumentNullException("key");
             if (value == null)
-                throw new ArgumentNullException("Argument \"value\" NULL.");
+                throw new ArgumentNullException("value");
             if (Contains(key))
                 throw new ArgumentException($"\"{key}\" existed.");
 
@@ -90,9 +90,9 @@ namespace INI
         public void Insert(int index, string key, TValue value)
         {
             if (key == null)
-                throw new ArgumentNullException("Argument \"key\" NULL.");
+                throw new ArgumentNullException("key");
             if (value == null)
-                throw new ArgumentNullException("Argument \"value\" NULL");
+                throw new ArgumentNullException("value");
             if (index < 0 || index > Count)
                 throw new IndexOutOfRangeException($"Index \"{index}\" out of range, current count: {Count}.");
             if (Contains(key))
@@ -105,7 +105,7 @@ namespace INI
         public int IndexOf(string key)
         {
             if (key == null)
-                throw new ArgumentNullException("Argument \"key\" NULL.");
+                throw new ArgumentNullException("key");
 
             if (Contains(key) == false)
                 return -1;
@@ -114,21 +114,21 @@ namespace INI
         public bool Contains(string key)
         {
             if (key == null)
-                throw new ArgumentNullException("Argument \"key\" NULL.");
+                throw new ArgumentNullException("key");
 
             return dict.ContainsKey(key);
         }
         public bool TryGetValue(string key, out TValue value)
         {
             if (key == null)
-                throw new ArgumentNullException("Argument \"key\" NULL.");
+                throw new ArgumentNullException("key");
 
             return dict.TryGetValue(key, out value);
         }
         public bool Remove(string key)
         {
             if (key == null)
-                throw new ArgumentNullException("Argument \"key\" NULL.");
+                throw new ArgumentNullException("key");
 
             if (Contains(key) == false)
                 return false;
@@ -148,9 +148,9 @@ namespace INI
         public void MoveKeyByRef(string toBeMovedKey, string refKey, bool beforeRef)
         {
             if (toBeMovedKey == null)
-                throw new ArgumentNullException("Argument \"toBeMovedKey\" NULL.");
+                throw new ArgumentNullException("toBeMovedKey");
             if (refKey == null)
-                throw new ArgumentNullException("Argument \"refKey\" NULL.");
+                throw new ArgumentNullException("refKey");
             if (Contains(toBeMovedKey) == false)//Not existed.
                 throw new ArgumentException($"\"{toBeMovedKey}\" not existed.");
             if (Contains(refKey) == false)//Not existed.
@@ -165,9 +165,9 @@ namespace INI
         public void RenameKey(string oldName, string newName)
         {
             if (oldName == null)
-                throw new ArgumentNullException("Argument \"oldName\" NULL.");
+                throw new ArgumentNullException("oldName");
             if (newName == null)
-                throw new ArgumentNullException("Argument \"newName\" NULL.");
+                throw new ArgumentNullException("newName");
             if (Contains(oldName) == false)//Not existed.
                 throw new ArgumentException($"\"{oldName}\" not existed.");
             if (Contains(newName))//Existed.

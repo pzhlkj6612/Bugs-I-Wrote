@@ -148,7 +148,8 @@ namespace INI
 
             RemoveChild(this[oldName]);//Demap it.
             AddChild(this[newName]);//Map it.
-            this[newName].SetParent(this[oldName].GetParent());//Map it.
+            this[oldName].SetParent(null);//Demap it.
+            this[newName].SetParent(this);//Map it.
             Remove(oldName);
         }
     }

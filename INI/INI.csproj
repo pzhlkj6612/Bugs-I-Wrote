@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeMapping.cs" />
+    <Compile Include="ININode.cs" />
     <Compile Include="IParent.cs" />
     <Compile Include="INIStruct.cs" />
     <Compile Include="BiMapping.cs" />

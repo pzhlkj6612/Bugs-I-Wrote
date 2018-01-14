@@ -147,8 +147,6 @@ namespace INI
 
         public void MoveKeyByRef(string toBeMovedKey, string refKey, bool beforeRef)
         {
-            INIStruct<INILine> a;
-            a = new INIStruct<INILine>(null);
             if (toBeMovedKey == null)
                 throw new ArgumentNullException("Argument \"toBeMovedKey\" NULL.");
             if (refKey == null)
